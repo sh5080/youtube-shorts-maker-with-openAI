@@ -9,5 +9,6 @@ export interface Config {
   };
   openai: {
     API_KEY: string;
+    organization: string;
   };
 }

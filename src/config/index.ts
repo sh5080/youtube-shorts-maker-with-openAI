@@ -38,7 +38,8 @@ const config: Config = {
     DB_NAME: getEnv("DB_NAME"),
   },
   openai: {
-    API_KEY: getEnv("API_KEY"),
+    API_KEY: getEnv("OPENAI_API_KEY"),
+    organization: getEnv("OPENAI_ORGANIZATION"),
   },
 };
 
