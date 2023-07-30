@@ -2,18 +2,23 @@ import { NextFunction, Request, Response } from "express";
 import * as quoteService from "../services/quoteService";
 import { AppError, CommonError } from "../types/AppError";
 import { CustomRequest } from "../types/customRequest";
+import * as path from "path";
 import * as fs from "fs";
 /** 연설가 생성 */
-export const searchOrator = async (
+export const searchQuotes = async (
   req: CustomRequest,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { message } = req.body;
+    const { keyword } = req.params;
+    if (keyword === undefined) {
+      keyword === "relationship";
+    }
     if (message === undefined) {
       message ===
-        "Give me 2 quotes from well-known people that discuss relationships. Don’t give me quotes from them. Only names in json with tablename is orator, please.";
+        `Give me 50 quotes in json from well-known people that discuss ${keyword}.`;
     }
 
     const oratorList = await quoteService.searchOrator(message);
@@ -50,50 +55,57 @@ export const createQuotes = async (
 };
 
 import { db } from "../loaders/dbLoader";
-export const test = async (req: Request, res: Response, next: NextFunction) => {
-  const jsonFilePath =
-    "/Users/seunghwankim/myproject/intro-me/intro-me/quotesShortsMaker/src/db/quotes.json";
+export const updateQuotes = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const jsonFilePath = path.join(__dirname, "../db/quotes.json");
   fs.readFile(jsonFilePath, "utf8", async (err, data) => {
     if (err) {
-      // 파일을 읽는 도중 에러가 발생하면 에러를 처리합니다.
       console.error("Error while reading JSON file:", err);
       return;
     }
+    console.log(jsonFilePath);
 
     try {
-      // JSON 데이터를 파싱하여 JavaScript 객체로 변환합니다.
       const jsonData = JSON.parse(data);
-      const uniqueOrators = new Set<string>();
-      // 데이터를 이용하여 원하는 작업을 수행합니다.
+      const oratorQuotes: { [orator: string]: { quote: string }[] } = {};
+
       for (const quoteData of jsonData.quotes) {
         const { quote, orator } = quoteData;
-        if (!uniqueOrators.has(orator)) {
-          try {
-            // Assuming you have a database connection and 'orator' table already set up
-            await db.execute(
-              "INSERT INTO quote (orator, quotes) VALUES (?, ?)",
-              [orator, quote]
-            );
-          } catch (err) {
-            const error = err as { code: string };
-            if (error.code === "ER_DUP_ENTRY") {
-              await db.execute("UPDATE quote SET quotes = ? WHERE orator = ?", [
-                quote,
-                orator,
-              ]);
-            } else {
-              throw err;
-            }
-          }
-          // Add the orator to the set to prevent duplicates
-          uniqueOrators.add(orator);
+
+        if (orator in oratorQuotes) {
+          oratorQuotes[orator].push({ quote });
+        } else {
+          oratorQuotes[orator] = [{ quote }];
         }
       }
 
-      res.status(200).json({ message: "Data inserted successfully." });
+      for (const orator in oratorQuotes) {
+        const quotesArray = oratorQuotes[orator];
+        const quotesJSON = JSON.stringify(quotesArray);
+        try {
+          await db.execute(
+            "INSERT INTO quote (orator, quotes) VALUES (?, ?) ON DUPLICATE KEY UPDATE quotes = ?",
+            [orator, quotesJSON, quotesJSON]
+          );
+        } catch (err) {
+          console.error(
+            "Error while inserting/updating data into the database:",
+            err
+          );
+          throw new AppError(
+            CommonError.UNEXPECTED_ERROR,
+            "데이터 삽입에 실패했습니다.",
+            500
+          );
+        }
+      }
+
+      res.status(200).json({ message: "quote 업데이트에 성공했습니다." });
     } catch (error) {
-      // JSON 데이터를 파싱하는 도중 에러가 발생하면 에러를 처리합니다.
-      console.error("Error while parsing JSON data:", error);
+      console.error("JSON 데이터를 파싱하는 도중 에러 발생: ", error);
       next(
         new AppError(
           CommonError.UNEXPECTED_ERROR,
