@@ -7,5 +7,5 @@ const router = Router();
 router.post("/message", userController.searchOrator);
 /** [인증] 명언 생성 */
 router.post("/", validateRequestBody(["orator"]), userController.createQuotes);
-
+router.post("/test", userController.test);
 export default router;
