@@ -11,12 +11,24 @@ export const searchQuotes = async (
   next: NextFunction
 ) => {
   try {
-    const { message } = req.body;
-    const { keyword } = req.params;
-    const targetKeyword = keyword === undefined ? "relationship" : keyword;
-    const targetMessage =
-      message === ""
-        ? `{
+    const { keyword, count } = req.body;
+
+    const filteredKeyword = keyword.replace(/[^a-zA-Z]/g, "");
+    if (filteredKeyword !== keyword) {
+      throw new AppError(
+        CommonError.INVALID_INPUT,
+        "키워드는 영문만 입력 가능합니다.",
+        400
+      );
+    }
+    if (count > 30) {
+      throw new AppError(
+        CommonError.INVALID_INPUT,
+        "한 번에 30개까지 요청이 가능합니다.",
+        400
+      );
+    }
+    const message = `{
           "quotes": [
             {
               "quote": "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
@@ -24,22 +36,16 @@ export const searchQuotes = async (
             }
           ]
         }
-          객체 안에 "quotes"라는 배열로 : 을 써서 이러한 형식의 json을 사용하여 ${targetKeyword}에 관한  유명한 사람들의 명언을 10개 구성해줘.`
-        : message;
-    console.log("message: ", targetMessage);
-    const sanitizedKeyword = targetKeyword
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "_");
+          객체 안에 "quotes"라는 배열로 : 을 써서 이러한 형식의 json을 사용하여 ${keyword}에 관한  유명한 사람들의 명언을 ${count}개 구성해줘.`;
+
+    const sanitizedKeyword = keyword.toLowerCase().replace(/[^a-z0-9]/g, "_");
     const tableName = `${sanitizedKeyword}_quote`;
     await quoteService.createTableIfNotExists(tableName);
 
-    const quoteList = await quoteService.searchQuotesToChat(targetMessage);
+    const quoteList = await quoteService.searchQuotesToChat(message);
     const quoteResult = JSON.parse(quoteList);
-
-    const jsonFilePath = path.join(
-      __dirname,
-      `../db/${targetKeyword}_quotes.json`
-    );
+    console.log(quoteList);
+    const jsonFilePath = path.join(__dirname, `../db/${keyword}_quotes.json`);
     fs.writeFile(jsonFilePath, JSON.stringify(quoteResult, null, 2), (err) => {
       if (err) {
         console.error("Error while saving JSON file:", err);
