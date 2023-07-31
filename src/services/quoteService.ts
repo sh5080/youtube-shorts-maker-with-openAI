@@ -1,7 +1,7 @@
 import { AppError, CommonError } from "../types/AppError";
 import * as Type from "../types/quotes";
 import { openai } from "../config/openAI";
-import { createOrator } from "../models/quoteModel";
+import * as quoteModel from "../models/quoteModel";
 
 // openAi 의 createCompletion 함수로 입력값에 대한 결과값 문장 생성
 const createCompletion = async (params: Type.Quotes) => {
@@ -38,7 +38,7 @@ const createCompletion = async (params: Type.Quotes) => {
   }
 };
 
-export const searchOrator = async (message: string) => {
+export const searchQuotesToChat = async (message: string) => {
   try {
     const params: Type.Quotes = {
       chat: {
@@ -53,7 +53,7 @@ export const searchOrator = async (message: string) => {
     const response = await createCompletion(params);
     if (response.data.choices) {
       const text = String(response.data.choices[0].text).trim();
-      await createOrator(text);
+      return text;
     }
     throw new AppError(
       CommonError.SERVER_ERROR,
@@ -62,5 +62,21 @@ export const searchOrator = async (message: string) => {
     );
   } catch (error) {
     throw error;
+  }
+};
+
+export const createTableIfNotExists = async (
+  tableName: string
+): Promise<void> => {
+  try {
+    // Call the model function to create the table
+    await quoteModel.createTableIfNotExists(tableName);
+  } catch (error) {
+    console.error("Error while creating the table:", error);
+    throw new AppError(
+      CommonError.UNEXPECTED_ERROR,
+      "테이블 생성에 실패했습니다.",
+      500
+    );
   }
 };
