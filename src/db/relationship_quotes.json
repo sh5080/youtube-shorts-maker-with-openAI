@@ -1,44 +1,180 @@
 {
   "quotes": [
     {
-      "quote": "The greatest happiness of life is the conviction that we are loved; loved for ourselves, or rather, loved in spite of ourselves.",
-      "author": "Victor Hugo"
+      "quote": "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
+      "author": "Carl Jung"
+    },
+    {
+      "quote": "Love doesn’t make the world go round. Love is what makes the ride worthwhile.",
+      "author": "Franklin P. Jones"
+    },
+    {
+      "quote": "We accept the love we think we deserve.",
+      "author": "Stephen Chbosky"
+    },
+    {
+      "quote": "Love is an untamed force. When we try to control it, it destroys us. When we try to imprison it, it enslaves us. When we try to understand it, it leaves us feeling lost and confused.",
+      "author": "Paulo Coelho"
+    },
+    {
+      "quote": "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.",
+      "author": "Lao Tzu"
+    },
+    {
+      "quote": "A great marriage is not when the ‘perfect couple’ comes together. It is when an imperfect couple learns to enjoy their differences.",
+      "author": "Dave Meurer"
+    },
+    {
+      "quote": "Infatuation is when you think he’s as sexy as Robert Redford, as smart as Henry Kissinger, as noble as Ralph Nader, as funny as Woody Allen, and as athletic as Jimmy Conners. Love is when you realize that he’s as sexy as Woody Allen, as smart as Jimmy Connors, as funny as Ralph Nader, as athletic as Henry Kissinger and nothing like Robert Redford – but you’ll take him anyway.",
+      "author": "Judith Viorst"
+    },
+    {
+      "quote": "Love never dies a natural death. It dies because we don’t know how to replenish its source. It dies of blindness and errors and betrayals. It dies of illness and wounds; it dies of weariness, of witherings, of tarnishings.",
+      "author": "Anais Nin"
+    },
+    {
+      "quote": "Love me when I least deserve it, because that’s when I really need it.",
+      "author": "Swedish Proverb"
+    },
+    {
+      "quote": "Don’t make love by the garden gate, love is blind but the neighbors ain’t.",
+      "author": "Unknown"
+    },
+    {
+      "quote": "Love does not dominate; it cultivates.",
+      "author": "Johann Wolfgang von Goethe"
     },
     {
       "quote": "Love looks not with the eyes, but with the mind, and therefore is winged Cupid painted blind.",
       "author": "William Shakespeare"
     },
     {
-      "quote": "Love is a better teacher than duty.",
+      "quote": "Love all, trust a few, do wrong to none.",
+      "author": "William Shakespeare"
+    },
+    {
+      "quote": "Love can touch us one time and last for a lifetime.",
+      "author": "Celine Dion"
+    },
+    {
+      "quote": "You know it’s love when all you want is that person to be happy, even if you’re not part of their happiness.",
+      "author": "Julia Roberts"
+    },
+    {
+      "quote": "You know you’re in love when you can’t fall asleep because reality is finally better than your dreams.",
+      "author": "Dr. Seuss"
+    },
+    {
+      "quote": "When you trip over love, it is easy to get up. But when you fall in love, it is impossible to stand again.",
       "author": "Albert Einstein"
     },
     {
-      "quote": "Love is when the other person's happiness is more important than your own.",
-      "author": "H. Jackson Brown Jr"
+      "quote": "Love is composed of a single soul inhabiting two bodies.",
+      "author": "Aristotle"
     },
     {
-      "quote": "A man is already halfway in love with any woman who listens to him.",
-      "author": "Brendan Francis"
+      "quote": "If I had a flower for every time I thought of you...I could walk through my garden forever.",
+      "author": "Alfred Lord Tennyson"
     },
     {
-      "quote": "People who are sensible about love are incapable of it.",
-      "author": "Douglas Yates"
+      "quote": "When you realize you want to spend the rest of your life with somebody, you want the rest of your life to start as soon as possible.",
+      "author": "Nora Ephron"
     },
     {
-      "quote": "Love means never having to say you're sorry.",
-      "author": "Erich Segal"
-    },
-    {
-      "quote": "Love is like a friendship caught on fire. In the beginning a flame, very pretty, often hot and fierce, but still only light and flickering.",
-      "author": "Amy Ruth Stahl"
+      "quote": "If you love somebody, let them go, for if they return, they were always yours. And if they don’t, they never were.",
+      "author": "Kahlil Gibran"
     },
     {
       "quote": "A successful marriage requires falling in love many times, always with the same person.",
       "author": "Mignon McLaughlin"
     },
     {
-      "quote": "Love is not finding someone to live with; it’s finding someone you can’t live without.",
-      "author": "Rafael Ortiz"
+      "quote": "Love is an irresistible desire to be irresistibly desired.",
+      "author": "Robert Frost"
+    },
+    {
+      "quote": "Love is a friendship set to music.",
+      "author": "Joseph Campbell"
+    },
+    {
+      "quote": "Trip over love, you can get up. Fall in love and you fall forever.",
+      "author": "Anonymous"
+    },
+    {
+      "quote": "Gravitation is not responsible for people falling in love.",
+      "author": "Albert Einstein"
+    },
+    {
+      "quote": "A successful relationship requires falling in love many times, always with the same person.",
+      "author": "Mignon McLaughlin"
+    },
+    {
+      "quote": "Love is that condition in which the happiness of another person is essential to your own.",
+      "author": "Robert A. Heinlein"
+    },
+    {
+      "quote": "Love doesn't make the world go round, love is what makes the ride worthwhile.",
+      "author": "Elizabeth Browning"
+    },
+    {
+      "quote": "The most precious possession that ever comes to a man in this world is a woman's heart.",
+      "author": "Josiah G. Holland"
+    },
+    {
+      "quote": "Immature love says: 'I love you because I need you.' Mature love says 'I need you because I love you.'",
+      "author": "Erich Fromm"
+    },
+    {
+      "quote": "The greatest pleasure of life is love.",
+      "author": "Euripedes"
+    },
+    {
+      "quote": "Love is the only sane and satisfactory answer to the problem of human existence.",
+      "author": "Eric Fromm"
+    },
+    {
+      "quote": "True love comes quietly, without banners or flashing lights. If you hear bells, get your ears checked.",
+      "author": "Erich Segal"
+    },
+    {
+      "quote": "Love makes your soul crawl out from its hiding place.",
+      "author": "Zora Neale Hurston"
+    },
+    {
+      "quote": "We can only learn to love by loving.",
+      "author": "Iris Murdoch"
+    },
+    {
+      "quote": "There is no greater happiness for a man than approaching a door at the end of a day knowing someone on the other side of that door is waiting for the sound of his footsteps.",
+      "author": "Ronald Reagan"
+    },
+    {
+      "quote": "Love isn't something you find. Love is something that finds you.",
+      "author": "Loretta Young"
+    },
+    {
+      "quote": "Love isn't a decision, it's a feeling. If we could decide who we loved, it would be much simpler, but much less magical.",
+      "author": "Trey Parker"
+    },
+    {
+      "quote": "Love is always open arms. If you close your arms about love you will find that you are left holding only yourself.",
+      "author": "Leo Buscaglia"
+    },
+    {
+      "quote": "No road is long with good company.",
+      "author": "Turkish Proverb"
+    },
+    {
+      "quote": "Love is like a friendship caught on fire. In the beginning a flame, very pretty, often hot and fierce, but still only light and flickering. As love grows older, our hearts mature and our love becomes as coals, deep-burning and unquenchable.",
+      "author": "Bruce Lee"
+    },
+    {
+      "quote": "Love is a game that two can play and both win.",
+      "author": "Eva Gabor"
+    },
+    {
+      "quote": "Once in a lifetime, you find someone who sees what nobody else sees, hears what nobody else hears, and feels what nobody else feels.",
+      "author": "Anonymous"
     }
   ]
 }

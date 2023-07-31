@@ -19,5 +19,7 @@ export interface CustomRequest extends Request {
     // name: string;
     // email: string;
     message: string;
+    keyword: string;
+    count: number;
   };
 }
