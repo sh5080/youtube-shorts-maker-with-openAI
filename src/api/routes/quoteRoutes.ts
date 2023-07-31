@@ -1,11 +1,11 @@
 import { Router } from "express";
 import * as userController from "../../controllers/quoteController";
-import { validateRequestBody } from "../middlewares/validateRequest";
 
 const router = Router();
 
-router.post("/message", userController.searchOrator);
-/** [인증] 명언 생성 */
-router.post("/", validateRequestBody(["orator"]), userController.createQuotes);
-router.post("/test", userController.test);
+/** open AI 프롬프트 json에 저장 */
+router.post("/chat/:keyword", userController.searchQuotes);
+
+/** json DB에 저장 */
+router.post("/update/:keyword", userController.updateQuotes);
 export default router;
