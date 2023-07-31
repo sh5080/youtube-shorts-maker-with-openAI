@@ -44,7 +44,7 @@ export const searchQuotesToChat = async (message: string) => {
       chat: {
         prompt: message,
         temperature: 0.9,
-        maxTokens: 200,
+        maxTokens: 1000,
         topP: 1,
         frequencyPenalty: 0,
         presencePenalty: 0.6,
@@ -78,5 +78,27 @@ export const createTableIfNotExists = async (
       "테이블 생성에 실패했습니다.",
       500
     );
+  }
+};
+
+export const updateQuotesInDB = async (keyword: string, jsonData: any) => {
+  const authorQuotes: { [author: string]: { quote: string }[] } = {};
+
+  for (const quoteData of jsonData.quotes) {
+    const { quote, author } = quoteData;
+
+    if (author in authorQuotes) {
+      authorQuotes[author].push({ quote });
+    } else {
+      authorQuotes[author] = [{ quote }];
+    }
+  }
+
+  for (const author in authorQuotes) {
+    const quotesArray = authorQuotes[author];
+    const quotesJSON = JSON.stringify(quotesArray);
+
+    // 모델로 분리한 로직 호출
+    await quoteModel.insertOrUpdateQuotes(keyword, author, quotesJSON);
   }
 };

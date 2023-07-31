@@ -18,7 +18,23 @@ export const createTableIfNotExists = async (
 
   if (tableExists[0].length === 0) {
     await db.query(
-      `CREATE TABLE ${tableName} (author VARCHAR(255), quotes TEXT)`
+      `CREATE TABLE ${tableName} ( id INT AUTO_INCREMENT PRIMARY KEY,author VARCHAR(255), quotes TEXT)`
     );
+  }
+};
+
+export const insertOrUpdateQuotes = async (
+  keyword: string,
+  author: string,
+  quotesJSON: string
+) => {
+  try {
+    await db.execute(
+      `INSERT INTO ${keyword}_quote (author, quotes) VALUES (?, ?) ON DUPLICATE KEY UPDATE quotes = ?`,
+      [author, quotesJSON, quotesJSON]
+    );
+  } catch (err) {
+    console.error("DB에 업데이트 하는 중 오류가 발생했습니다.:", err);
+    throw err;
   }
 };
