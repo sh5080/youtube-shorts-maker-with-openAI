@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as userController from "../../controllers/quoteController";
+import * as quoteController from "../../controllers/quoteController";
 import { validateRequestBody } from "../middlewares/validateRequest";
 
 const router = Router();
@@ -8,9 +8,9 @@ const router = Router();
 router.post(
   "/chat",
   validateRequestBody(["keyword", "count"]),
-  userController.searchQuotes
+  quoteController.searchQuotes
 );
 
 /** json DB에 저장 */
-router.post("/update/:keyword", userController.updateQuotes);
+router.post("/update/:keyword", quoteController.updateQuotes);
 export default router;
