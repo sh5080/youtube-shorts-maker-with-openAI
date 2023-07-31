@@ -63,68 +63,6 @@ export const searchQuotes = async (
 
 /** JSON DB에 저장 */
 
-// import { db } from "../loaders/dbLoader";
-// export const updateQuotes = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   const { keyword } = req.params;
-//   const jsonFilePath = path.join(__dirname, "../db/relationship_quotes.json");
-//   fs.readFile(jsonFilePath, "utf8", async (err, data) => {
-//     if (err) {
-//       console.error("Error while reading JSON file:", err);
-//       return;
-//     }
-
-//     try {
-//       const jsonData = JSON.parse(data);
-//       console.log(jsonData);
-
-//       const authorQuotes: { [author: string]: { quote: string }[] } = {};
-
-//       for (const quoteData of jsonData.quotes) {
-//         const { quote, author } = quoteData;
-
-//         if (author in authorQuotes) {
-//           authorQuotes[author].push({ quote });
-//         } else {
-//           authorQuotes[author] = [{ quote }];
-//         }
-//       }
-
-//       for (const author in authorQuotes) {
-//         const quotesArray = authorQuotes[author];
-//         const quotesJSON = JSON.stringify(quotesArray);
-//         try {
-//           await db.execute(
-//             `INSERT INTO ${keyword}_quote (author, quotes) VALUES (?, ?) ON DUPLICATE KEY UPDATE quotes = ?`,
-//             [author, quotesJSON, quotesJSON]
-//           );
-//         } catch (err) {
-//           console.error("DB에 업데이트 하는 중 오류가 발생했습니다.:", err);
-//           throw new AppError(
-//             CommonError.UNEXPECTED_ERROR,
-//             "데이터 삽입에 실패했습니다.",
-//             500
-//           );
-//         }
-//       }
-
-//       res.status(200).json({ message: "quote 업데이트에 성공했습니다." });
-//     } catch (error) {
-//       console.error("JSON 데이터를 파싱하는 도중 에러 발생: ", error);
-//       next(
-//         new AppError(
-//           CommonError.UNEXPECTED_ERROR,
-//           "데이터 삽입에 실패했습니다.",
-//           500
-//         )
-//       );
-//     }
-//   });
-// };
-
 export const updateQuotes = async (
   req: Request,
   res: Response,
