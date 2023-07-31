@@ -18,7 +18,7 @@ export const createTableIfNotExists = async (
 
   if (tableExists[0].length === 0) {
     await db.query(
-      `CREATE TABLE ${tableName} ( id INT AUTO_INCREMENT PRIMARY KEY,author VARCHAR(255), quotes TEXT)`
+      `CREATE TABLE ${tableName} ( id INT AUTO_INCREMENT PRIMARY KEY,author VARCHAR(255) UNIQUE, quotes TEXT)`
     );
   }
 };
