@@ -102,3 +102,16 @@ export const updateQuotesInDB = async (keyword: string, jsonData: any) => {
     await quoteModel.insertOrUpdateQuotes(keyword, author, quotesJSON);
   }
 };
+
+export const updateData = async () => {
+  try {
+    await quoteModel.updateData();
+    const authorStats = await quoteModel.getAuthorStats();
+    console.log("Total Authors:", authorStats.totalAuthors);
+    console.log("Total Quote Count:", authorStats.totalQuoteCount);
+    return authorStats;
+  } catch (err) {
+    console.error("Error updating data:", err);
+    throw err;
+  }
+};

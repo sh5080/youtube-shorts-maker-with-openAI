@@ -8,3 +8,8 @@ export interface Quotes {
     presencePenalty: number;
   };
 }
+
+export interface AuthorStats {
+  totalAuthors: number;
+  totalQuoteCount: number;
+}

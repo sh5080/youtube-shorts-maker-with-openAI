@@ -102,3 +102,23 @@ export const updateQuotes = async (
     }
   });
 };
+
+export const updateData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const authorStats = await quoteService.updateData();
+    res.status(200).json(authorStats);
+  } catch (error) {
+    console.error("Error updating data:", error);
+    next(
+      new AppError(
+        CommonError.UNEXPECTED_ERROR,
+        "데이터 삽입에 실패했습니다.",
+        500
+      )
+    );
+  }
+};

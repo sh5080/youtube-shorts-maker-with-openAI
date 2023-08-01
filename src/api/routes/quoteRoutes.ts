@@ -14,3 +14,6 @@ router.post(
 /** json DB에 저장 */
 router.post("/update/:keyword", quoteController.updateQuotes);
 export default router;
+
+/**DB 업데이트 */
+router.post("/updateData", quoteController.updateData);
