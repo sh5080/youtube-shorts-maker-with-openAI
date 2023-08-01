@@ -15,5 +15,5 @@ router.post(
 router.post("/update/:keyword", quoteController.updateQuotes);
 export default router;
 
-/**DB 업데이트 */
+/**각 quotes 조회하여 result에 업데이트 */
 router.post("/updateData", quoteController.updateData);

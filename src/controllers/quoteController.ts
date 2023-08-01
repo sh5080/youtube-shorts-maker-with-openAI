@@ -21,10 +21,10 @@ export const searchQuotes = async (
         400
       );
     }
-    if (count > 30) {
+    if (count > 21) {
       throw new AppError(
         CommonError.INVALID_INPUT,
-        "한 번에 30개까지 요청이 가능합니다.",
+        "한 번에 20개까지 요청이 가능합니다.",
         400
       );
     }
@@ -36,7 +36,7 @@ export const searchQuotes = async (
             }
           ]
         }
-          객체 안에 "quotes"라는 배열로 : 을 써서 이러한 형식의 json을 사용하여 ${keyword}에 관한  유명한 사람들의 명언을 ${count}개 구성해줘.`;
+          객체 안에 "quotes"라는 배열로 : 을 써서 이러한 형식의 json을 사용하여 ${keyword}에 관한 유명한 사람들의 명언을 한국어로 번역해서 ${count}개 구성해줘.`;
 
     const sanitizedKeyword = keyword.toLowerCase().replace(/[^a-z0-9]/g, "_");
     const tableName = `${sanitizedKeyword}_quote`;
@@ -88,8 +88,16 @@ export const updateQuotes = async (
 
       // 서비스로 분리한 로직 호출
       await quoteService.updateQuotesInDB(keyword, jsonData);
-
-      res.status(200).json({ message: "quote 업데이트에 성공했습니다." });
+      fs.unlink(jsonFilePath, (err) => {
+        if (err) {
+          console.error("JSON file 삭제 중 에러:", err);
+          return;
+        }
+        console.log(`${keyword}_quotes.json 이 삭제되었습니다.`);
+      });
+      res
+        .status(200)
+        .json({ message: `${keyword}_quote 업데이트에 성공했습니다.` });
     } catch (error) {
       console.error("JSON 데이터를 파싱하는 도중 에러 발생: ", error);
       next(

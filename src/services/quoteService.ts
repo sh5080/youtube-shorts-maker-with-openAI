@@ -44,7 +44,7 @@ export const searchQuotesToChat = async (message: string) => {
       chat: {
         prompt: message,
         temperature: 0.9,
-        maxTokens: 3000,
+        maxTokens: 3500,
         topP: 1,
         frequencyPenalty: 0,
         presencePenalty: 0.6,
