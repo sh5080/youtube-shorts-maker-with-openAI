@@ -22,5 +22,7 @@ export interface CustomRequest extends Request {
     keyword: string;
     author: string;
     count: number;
+    title: string;
+    description: string;
   };
 }
