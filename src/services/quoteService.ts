@@ -1,6 +1,6 @@
 import { AppError, CommonError } from "../types/AppError";
 import * as Type from "../types/quotes";
-import { openai } from "../config/openAI";
+import { openai } from "../config/config";
 import * as quoteModel from "../models/quoteModel";
 
 // openAi 의 createCompletion 함수로 입력값에 대한 결과값 문장 생성
