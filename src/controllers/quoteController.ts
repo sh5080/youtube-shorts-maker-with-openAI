@@ -56,7 +56,10 @@ export const searchQuotes = async (
     }
 
     console.log(quoteList);
-    const jsonFilePath = path.join(__dirname, `../db/${keyword}_quotes.json`);
+    const jsonFilePath = path.join(
+      __dirname,
+      `../../public/quotes/${keyword}_quotes.json`
+    );
     fs.writeFile(jsonFilePath, JSON.stringify(quoteResult, null, 2), (err) => {
       if (err) {
         console.error("Error while saving JSON file:", err);
@@ -86,7 +89,10 @@ export const updateQuotes = async (
   next: NextFunction
 ) => {
   const { keyword } = req.params;
-  const jsonFilePath = path.join(__dirname, `../db/${keyword}_quotes.json`);
+  const jsonFilePath = path.join(
+    __dirname,
+    `../../public/quotes/${keyword}_quotes.json`
+  );
   fs.readFile(jsonFilePath, "utf8", async (err, data) => {
     if (err) {
       console.error("Error while reading JSON file:", err);
