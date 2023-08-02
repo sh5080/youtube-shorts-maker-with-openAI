@@ -41,6 +41,10 @@ const config: Config = {
     API_KEY: getEnv("OPENAI_API_KEY"),
     organization: getEnv("OPENAI_ORGANIZATION"),
   },
+  youtube: {
+    CLIENT_ID: getEnv("GOOGLE_CLIENT_ID"),
+    CLIENT_SECRET: getEnv("GOOGLE_CLIENT_SECRET"),
+  },
 };
 
 export default config;

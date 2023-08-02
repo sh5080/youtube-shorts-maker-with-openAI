@@ -11,4 +11,8 @@ export interface Config {
     API_KEY: string;
     organization: string;
   };
+  youtube: {
+    CLIENT_ID: string;
+    CLIENT_SECRET: string;
+  };
 }
