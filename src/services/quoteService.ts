@@ -115,3 +115,16 @@ export const updateData = async () => {
     throw err;
   }
 };
+
+export const getQuotesByAuthor = async (
+  keyword: Type.Search,
+  author: Type.Search
+) => {
+  try {
+    const result = await quoteModel.getQuotesByAuthor(keyword, author);
+    return result;
+  } catch (error) {
+    console.error("데이터 찾는 중 오류", error);
+    throw error;
+  }
+};

@@ -7,7 +7,7 @@ const router = Router();
 /** open AI 프롬프트 json에 저장 */
 router.post(
   "/chat",
-  validateRequestBody(["keyword", "count"]),
+  validateRequestBody(["keyword", "author", "count"]),
   quoteController.searchQuotes
 );
 
@@ -17,3 +17,9 @@ export default router;
 
 /**각 quotes 조회하여 result에 업데이트 */
 router.post("/updateData", quoteController.updateData);
+
+router.get(
+  "/search",
+  validateRequestBody(["keyword", "author"]),
+  quoteController.getQuotesByAuthor
+);

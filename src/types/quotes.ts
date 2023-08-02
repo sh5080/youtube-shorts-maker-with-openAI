@@ -8,6 +8,10 @@ export interface Quotes {
     presencePenalty: number;
   };
 }
+export interface Search {
+  keyword: string;
+  author: string;
+}
 
 export interface AuthorStats {
   totalAuthors: number;

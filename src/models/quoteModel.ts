@@ -1,6 +1,6 @@
 import { db } from "../loaders/dbLoader";
 import { RowDataPacket, ResultSetHeader, FieldPacket } from "mysql2";
-import { AuthorStats } from "../types/quotes";
+import * as Type from "../types/quotes";
 export const createTableIfNotExists = async (
   tableName: string
 ): Promise<void> => {
@@ -105,7 +105,7 @@ export const updateData = async () => {
   }
 };
 
-export const getAuthorStats = async (): Promise<AuthorStats> => {
+export const getAuthorStats = async (): Promise<Type.AuthorStats> => {
   try {
     const query = `
       SELECT COUNT(DISTINCT author) AS totalAuthors, SUM(quote_count) AS totalQuoteCount
@@ -115,6 +115,21 @@ export const getAuthorStats = async (): Promise<AuthorStats> => {
     const [rows] = await db.execute<RowDataPacket[]>(query);
     const { totalAuthors, totalQuoteCount } = rows[0];
     return { totalAuthors, totalQuoteCount };
+  } catch (err) {
+    console.error("Error getting author stats:", err);
+    throw err;
+  }
+};
+
+export const getQuotesByAuthor = async (
+  keyword: Type.Search,
+  author: Type.Search
+) => {
+  try {
+    const query = `
+    SELECT * FROM ${keyword}_quote WHERE author = ?`;
+    const [rows] = await db.execute(query, [author]);
+    return rows;
   } catch (err) {
     console.error("Error getting author stats:", err);
     throw err;

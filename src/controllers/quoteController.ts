@@ -11,7 +11,7 @@ export const searchQuotes = async (
   next: NextFunction
 ) => {
   try {
-    const { keyword, count } = req.body;
+    const { keyword, author, count } = req.body;
 
     const filteredKeyword = keyword.replace(/[^a-zA-Z]/g, "");
     if (filteredKeyword !== keyword) {
@@ -21,29 +21,40 @@ export const searchQuotes = async (
         400
       );
     }
-    if (count > 21) {
+    if (count > 10) {
       throw new AppError(
         CommonError.INVALID_INPUT,
-        "한 번에 20개까지 요청이 가능합니다.",
+        "한 번에 10개까지 요청이 가능합니다.",
         400
       );
     }
     const message = `{
           "quotes": [
             {
-              "quote": "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
-              "author": "Carl Jung"
+              "quote": "이 두 사람의 만남은 두 개의 화학물질의 접촉과 비슷하다. 만약에 반응이 일어난다면, 두 사람 모두가 달라질 것이다.",
+              "author": "카를 중"
             }
           ]
         }
-          객체 안에 "quotes"라는 배열로 : 을 써서 이러한 형식의 json을 사용하여 ${keyword}에 관한 유명한 사람들의 명언을 한국어로 번역해서 ${count}개 구성해줘.`;
+          객체 안에 "quotes"라는 배열로 : 을 써서 이러한 형식의 json을 사용하여 ${keyword}에 관한 ${author}의 명언을 한국어로 번역해서 ${count}개 구성해줘.`;
 
     const sanitizedKeyword = keyword.toLowerCase().replace(/[^a-z0-9]/g, "_");
     const tableName = `${sanitizedKeyword}_quote`;
     await quoteService.createTableIfNotExists(tableName);
 
     const quoteList = await quoteService.searchQuotesToChat(message);
-    const quoteResult = JSON.parse(quoteList);
+    let quoteResult;
+    try {
+      quoteResult = JSON.parse(quoteList);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      throw new AppError(
+        CommonError.SERVER_ERROR,
+        "JSON 파싱 오류가 발생했습니다. 다시 시도해주세요.",
+        500
+      );
+    }
+
     console.log(quoteList);
     const jsonFilePath = path.join(__dirname, `../db/${keyword}_quotes.json`);
     fs.writeFile(jsonFilePath, JSON.stringify(quoteResult, null, 2), (err) => {
@@ -125,6 +136,28 @@ export const updateData = async (
       new AppError(
         CommonError.UNEXPECTED_ERROR,
         "데이터 삽입에 실패했습니다.",
+        500
+      )
+    );
+  }
+};
+
+export const getQuotesByAuthor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { keyword, author } = req.body;
+    const result = await quoteService.getQuotesByAuthor(keyword, author);
+    console.log(result);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("데이터 가져오는 중 오류", error);
+    next(
+      new AppError(
+        CommonError.UNEXPECTED_ERROR,
+        "데이터 조회에 실패했습니다.",
         500
       )
     );

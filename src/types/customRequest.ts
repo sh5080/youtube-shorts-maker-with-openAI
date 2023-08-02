@@ -20,6 +20,7 @@ export interface CustomRequest extends Request {
     // email: string;
     message: string;
     keyword: string;
+    author: string;
     count: number;
   };
 }

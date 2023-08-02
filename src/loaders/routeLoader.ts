@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from "express";
-import quoteRouter from "../api/routes/quoteRoutes";
+import router from "../api/routes/index";
 
 const routeLoader = (app: Application): Application => {
   app.get("/", (req: Request, res: Response) => {
@@ -10,8 +10,8 @@ const routeLoader = (app: Application): Application => {
   app.use("/static", express.static("public"));
 
   /** 라우팅 */
-  app.use("/quotes", quoteRouter);
-
+  // app.use("/quotes", quoteRouter);
+  app.use(router);
   return app;
 };
 
