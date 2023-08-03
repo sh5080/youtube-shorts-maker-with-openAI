@@ -24,5 +24,6 @@ export interface CustomRequest extends Request {
     count: number;
     title: string;
     description: string;
+    video: string;
   };
 }

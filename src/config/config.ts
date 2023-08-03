@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 import config from "./index";
 import { google } from "googleapis";
+
 const { API_KEY, organization } = config.openai;
 const configuration = new Configuration({
   apiKey: API_KEY,
@@ -8,20 +9,22 @@ const configuration = new Configuration({
 });
 export const openai = new OpenAIApi(configuration);
 
-const { CLIENT_ID, CLIENT_SECRET } = config.youtube;
+export const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = config.youtube;
+const scopes = [
+  "https://www.googleapis.com/auth/drive.metadata.readonly",
+  "https://www.googleapis.com/auth/youtube.upload",
+];
 
+const oauth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URI
+);
+const authorizationUrl = oauth2Client.generateAuthUrl({
+  access_type: "offline",
+  scope: scopes,
+  include_granted_scopes: true,
+});
 // Google API 클라이언트 초기화
 const youtube = google.youtube("v3");
-
-// OAuth 2.0 인증 설정
-const auth = new google.auth.OAuth2(
-  CLIENT_ID,
-  CLIENT_SECRET
-  // REDIRECT_URL
-);
-
-// auth.setCredentials({
-//   refresh_token: REFRESH_TOKEN,
-// });
-
-export { youtube, auth };
+export { youtube, oauth2Client, authorizationUrl };

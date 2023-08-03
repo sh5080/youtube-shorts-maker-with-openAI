@@ -44,6 +44,7 @@ const config: Config = {
   youtube: {
     CLIENT_ID: getEnv("GOOGLE_CLIENT_ID"),
     CLIENT_SECRET: getEnv("GOOGLE_CLIENT_SECRET"),
+    REDIRECT_URI: getEnv("GOOGLE_REDIRECT_URI"),
   },
 };
 
