@@ -8,6 +8,45 @@ import * as fs from "fs";
 import * as config from "../config/config";
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = config;
 
+export const youtubeLogin = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  // OAuth 2.0 인증 설정
+  res.redirect(config.authorizationUrl);
+};
+export const getOauthToken = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const authCode = req.query.code;
+  console.log("1: ", req.query);
+  const tokenEndpoint = "https://oauth2.googleapis.com/token";
+  try {
+    const response = await axios.post(tokenEndpoint, null, {
+      params: {
+        code: authCode,
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        grant_type: "authorization_code",
+        redirect_uri: REDIRECT_URI,
+      },
+    });
+
+    const refreshToken = response.data.refresh_token;
+    config.oauth2Client.setCredentials({
+      refresh_token: refreshToken,
+    });
+
+    res.send("Authentication successful");
+  } catch (error) {
+    console.error("Error exchanging tokens:", error);
+    res.status(500).send("Authentication error");
+  }
+};
+
 export const uploadVideo = async (
   req: CustomRequest,
   res: Response,
@@ -65,44 +104,5 @@ export const uploadVideo = async (
   } catch (error) {
     console.error("업로드 중 오류: ", error);
     next(error);
-  }
-};
-
-export const youtubeLogin = async (
-  req: CustomRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  // OAuth 2.0 인증 설정
-  res.redirect(config.authorizationUrl);
-};
-export const getOauthToken = async (
-  req: CustomRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  const authCode = req.query.code;
-  console.log("1: ", req.query);
-  const tokenEndpoint = "https://oauth2.googleapis.com/token";
-  try {
-    const response = await axios.post(tokenEndpoint, null, {
-      params: {
-        code: authCode,
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        grant_type: "authorization_code",
-        redirect_uri: REDIRECT_URI,
-      },
-    });
-
-    const refreshToken = response.data.refresh_token;
-    config.oauth2Client.setCredentials({
-      refresh_token: refreshToken,
-    });
-
-    res.send("Authentication successful");
-  } catch (error) {
-    console.error("Error exchanging tokens:", error);
-    res.status(500).send("Authentication error");
   }
 };

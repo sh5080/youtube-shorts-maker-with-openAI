@@ -4,6 +4,9 @@ import { validateRequestBody } from "../middlewares/validateRequest";
 
 const router = Router();
 
+router.get("/login", videoController.youtubeLogin);
+router.get("/auth/callback", videoController.getOauthToken);
+
 /** json DB에 저장 */
 router.post(
   "/upload",
@@ -11,6 +14,4 @@ router.post(
   videoController.uploadVideo
 );
 
-router.get("/login", videoController.youtubeLogin);
-router.get("/auth/callback", videoController.getOauthToken);
 export default router;

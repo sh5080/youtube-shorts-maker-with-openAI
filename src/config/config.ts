@@ -10,10 +10,7 @@ const configuration = new Configuration({
 export const openai = new OpenAIApi(configuration);
 
 export const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = config.youtube;
-const scopes = [
-  "https://www.googleapis.com/auth/drive.metadata.readonly",
-  "https://www.googleapis.com/auth/youtube.upload",
-];
+const scopes = ["https://www.googleapis.com/auth/youtube.upload"];
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
