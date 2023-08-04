@@ -10,7 +10,6 @@ const routeLoader = (app: Application): Application => {
   app.use("/static", express.static("public"));
 
   /** 라우팅 */
-  // app.use("/quotes", quoteRouter);
   app.use(router);
   return app;
 };

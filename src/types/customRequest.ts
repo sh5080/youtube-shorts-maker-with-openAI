@@ -25,5 +25,6 @@ export interface CustomRequest extends Request {
     title: string;
     description: string;
     video: string;
+    image: string;
   };
 }
