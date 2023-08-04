@@ -55,8 +55,11 @@ export const uploadVideo = async (
   try {
     const { video, title, description } = req.body;
 
-    const videoPath = path.join(__dirname, `../../public/videos/${video}.mp4`);
-    if (fs.existsSync(videoPath)) {
+    const videoFilePath = path.join(
+      __dirname,
+      `../../public/videos/${video}.mp4`
+    );
+    if (fs.existsSync(videoFilePath)) {
       const videoParams = {
         part: "snippet, status",
         requestBody: {
@@ -69,7 +72,7 @@ export const uploadVideo = async (
           },
         },
         media: {
-          body: fs.createReadStream(videoPath), // 동영상 파일 경로
+          body: fs.createReadStream(videoFilePath), // 동영상 파일 경로
         },
       };
 
