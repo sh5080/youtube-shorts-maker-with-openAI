@@ -156,16 +156,16 @@ export const getQuotesByAuthor = async (
   try {
     const { keyword, author } = req.body;
     const result = await quoteService.getQuotesByAuthor(keyword, author);
-    console.log(result);
+    if (Array.isArray(result) && result.length === 0) {
+      throw new AppError(
+        CommonError.RESOURCE_NOT_FOUND,
+        "검색결과가 없습니다.",
+        404
+      );
+    }
     res.status(200).json(result);
   } catch (error) {
-    console.error("데이터 가져오는 중 오류", error);
-    next(
-      new AppError(
-        CommonError.UNEXPECTED_ERROR,
-        "데이터 조회에 실패했습니다.",
-        500
-      )
-    );
+    console.error("데이터 가져오는 중 오류: ", error);
+    next(error);
   }
 };
