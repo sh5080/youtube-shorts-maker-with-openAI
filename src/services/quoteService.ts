@@ -122,7 +122,25 @@ export const getQuotesByAuthor = async (
 ) => {
   try {
     const result = await quoteModel.getQuotesByAuthor(keyword, author);
-    return result;
+
+    // 데이터의 형식이 맞지 않으면 오류 처리
+    if (
+      !Array.isArray(result) ||
+      result.length === 0 ||
+      !("quotes" in result[0])
+    ) {
+      console.error("데이터 형식이 올바르지 않습니다.");
+      return [];
+    }
+
+    // 명언들 추출
+    const quotesData = JSON.parse(result[0].quotes);
+    const quotes: string[] = quotesData.map(
+      (quoteItem: { quote: string }) => quoteItem.quote
+    );
+
+    console.log(quotes);
+    return quotes;
   } catch (error) {
     console.error("데이터 찾는 중 오류", error);
     throw error;
