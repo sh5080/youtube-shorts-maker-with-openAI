@@ -21,10 +21,10 @@ export const searchQuotes = async (
         400
       );
     }
-    if (count > 10) {
+    if (count > 15) {
       throw new AppError(
         CommonError.INVALID_INPUT,
-        "한 번에 10개까지 요청이 가능합니다.",
+        "한 번에 15개까지 요청이 가능합니다.",
         400
       );
     }
